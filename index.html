@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>통계학 및 데이터 과학</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f8fa;
+    --surface: #ffffff;
+    --surface2: #f0f2f5;
+    --border: #d0d7de;
+    --accent: #0969da;
+    --accent2: #cf222e;
+    --accent3: #1a7f37;
+    --accent4: #8250df;
+    --text: #1f2328;
+    --text-muted: #656d76;
+    --yellow: #9a6700;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 700px 300px at 30% 50%, rgba(9,105,218,0.05) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 250px at 75% 60%, rgba(130,80,223,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(9,105,218,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(9,105,218,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(9,105,218,0.08);
+    border: 1px solid rgba(9,105,218,0.2);
+    border-radius: 20px;
+    padding: 5px 16px;
+    letter-spacing: 0.1em;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 2s infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity:1; } 50% { opacity:0.3; }
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 .line2 {
+    display: block;
+    color: var(--accent);
+  }
+  .hero-sub {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 36px;
+    position: relative;
+  }
+  .hero-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    position: relative;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text-muted);
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 56px 0 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+  }
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── CARD GRID ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── LECTURE CARD ── */
+  .lec-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.15s, border-color 0.15s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+  .lec-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-color: #9aa3b0;
+    transform: translateY(-2px);
+  }
+  .lec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+  .lec-card.theory::before { background: var(--accent); }
+  .lec-card.practice::before { background: var(--accent3); }
+  .lec-card.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .card-type.theory {
+    background: rgba(9,105,218,0.08);
+    color: var(--accent);
+    border: 1px solid rgba(9,105,218,0.2);
+  }
+  .card-type.practice {
+    background: rgba(26,127,55,0.08);
+    color: var(--accent3);
+    border: 1px solid rgba(26,127,55,0.2);
+  }
+  .card-type.soon {
+    background: var(--surface2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+  }
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-top: 4px;
+    transition: color 0.15s, transform 0.15s;
+  }
+  .lec-card:hover .card-arrow {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+
+  /* ── TOOLS / INFO ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 0;
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .info-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .info-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .info-card ul li {
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-card ul li::before {
+    content: '▸';
+    color: var(--accent);
+    font-size: 10px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 80px;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    text-align: center;
+  }
+  footer p {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 20px 40px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-eyebrow">동물생명공학과 · 4학년</div>
+  <h1>통계학 및<span class="line2">데이터 과학</span></h1>
+  <p class="hero-sub">Statistics &amp; Data Science — Google Colab 기반 실습 강의</p>
+  <div class="hero-badges">
+    <span class="badge">🐍 Python</span>
+    <span class="badge">📊 sklearn</span>
+    <span class="badge">📓 Google Colab</span>
+    <span class="badge">🤖 AI-assisted Learning</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ── 07 로지스틱 회귀 ── -->
+  <div class="section-header">
+    <span class="section-label">LECTURE 07</span>
+    <span class="section-title">로지스틱 회귀 — 분류 문제의 시작</span>
+  </div>
+
+  <div class="card-grid">
+
+    <a href="logistic_regression_lecture.html" class="lec-card theory">
+      <div class="card-top">
+        <span class="card-type theory">이론</span>
+        <span class="card-num">07-A</span>
+      </div>
+      <div class="card-title">로지스틱 회귀의 이해</div>
+      <div class="card-desc">
+        선형회귀의 한계, 오즈와 시그모이드 함수, MLE 추정,
+        회귀계수 해석, 혼동행렬과 ROC 커브까지.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Sigmoid</span>
+        <span class="tag">Odds Ratio</span>
+        <span class="tag">Confusion Matrix</span>
+        <span class="tag">ROC / AUC</span>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a href="dementia_practice.html" class="lec-card practice">
+      <div class="card-top">
+        <span class="card-type practice">실습</span>
+        <span class="card-num">07-B</span>
+      </div>
+      <div class="card-title">치매 예측 분류 모델 만들기</div>
+      <div class="card-desc">
+        OASIS MRI 데이터로 치매 여부를 예측하는
+        로지스틱 회귀 모델을 직접 구축하고 평가합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">OASIS Dataset</span>
+        <span class="tag">Preprocessing</span>
+        <span class="tag">Model Evaluation</span>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+
+
+
+<footer>
+  <p>전북대학교 동물실험통계학</p>
+</footer>
+
+</body>
+</html>
